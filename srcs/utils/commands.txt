@@ -1,0 +1,23 @@
+Pour maper le port de la vm au notre
+
+docker-machine stop default
+vboxmanage modifyvm default --natpf1 "localhost,tcp,,443,,443"
+docker-machine start default
+
+
+Compile N Run 
+
+docker build -t [nom-qu-on-veut-donner-a-l-image]
+docker run [nom-qu-on-a-donner-a-l-image]
+
+Pour executer une commande pendant la création de l'image,
+et donc avant le lancement du container, on utilise l'instruction RUN du Dockerfile,
+qui pourra executer une commande Shell. On peut lui spécifier directement les commandes
+ou bien lui demander d'executer un script qui lui contiendrai toutes nos commandes
+et opérations (copier des fichiers par exemple).
+
+Ici, on utilisera l'instruction RUN uniquement pour installer les paquets.
+
+Dockerfile line:3-12 : RUN apt-get -y update && apt-get -y install mariadb-server \ wget \ php \ php-cli \ php-cgi \ php-mbstring \ php-fpm \ php-mysql \ nginx \ libnss3-tools
+
+Pour choisir comment construire son Dockerfile : https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
